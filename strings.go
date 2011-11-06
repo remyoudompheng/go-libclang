@@ -9,7 +9,7 @@ func from_CXString(s C.CXString) string {
 }
 
 type CompletionString struct {
-  ptr C.CXCompletionString
+	ptr C.CXCompletionString
 }
 
 func (s CompletionString) NumChunks() uint {
@@ -20,4 +20,14 @@ func (s CompletionString) NumChunks() uint {
 func (s CompletionString) CompletionPriority() uint {
 	n := C.clang_getCompletionPriority(s.ptr)
 	return uint(n)
+}
+
+func (s CompletionString) ChunkKind(i uint) CompletionChunkKind {
+	k := C.clang_getCompletionChunkKind(s.ptr, C.unsigned(i))
+	return CompletionChunkKind(k)
+}
+
+func (s CompletionString) ChunkText(i uint) string {
+	cx_string := C.clang_getCompletionChunkText(s.ptr, C.unsigned(i))
+	return from_CXString(cx_string)
 }

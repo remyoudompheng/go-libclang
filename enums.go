@@ -176,3 +176,29 @@ const (
 	TUCXXPrecompiledPreamble
 	TUCXXChainedPCH
 )
+
+type CompletionChunkKind uint
+
+const (
+	ChunkOptional CompletionChunkKind = iota
+	ChunkTypedText
+	ChunkText
+	ChunkPlaceholder
+	ChunkInformative
+	ChunkCurrentParameter
+	ChunkLeftParen
+	ChunkRightParen
+	ChunkLeftBracket
+	ChunkRightBracket
+	ChunkLeftBrace
+	ChunkRightBrace
+	ChunkLeftAngle
+	ChunkRightAngle
+	ChunkComma
+	ChunkResultType
+	ChunkColon
+	ChunkSemiColon
+	ChunkEqual
+	ChunkHorizontalSpace
+	ChunkVerticalSpace
+)

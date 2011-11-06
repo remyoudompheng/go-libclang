@@ -31,18 +31,21 @@ func (index *Index) Dispose() {
 	}
 }
 
-type CodeCompleteResults struct {
-	Items []CompletionString
-	ptr   *C.CXCodeCompleteResults
-}
-
 type TranslationUnit struct {
-	ptr *C.CXTranslationUnit
+	ptr C.CXTranslationUnit
 }
 
 func ParseTranslationUnit(idx Index,
 	filename string,
 	cmdline_args []string,
 	unsaved_files []UnsavedFile,
-	options TUOptions) {
+	options TUOptions) TranslationUnit {
+	return TranslationUnit{}
+}
+
+func (tu *TranslationUnit) Dispose() {
+	if tu != nil && tu.ptr != nil {
+		C.clang_disposeTranslationUnit(tu.ptr)
+		tu.ptr = nil
+	}
 }
